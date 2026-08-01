@@ -1,0 +1,9 @@
+# Canonical domain: redirect www to non-www
+https://www.yumareptiles.com/* https://yumareptiles.com/:splat 301!
+
+# Next.js static export with trailingSlash=true generates /path/index.html
+# Cloudflare Pages handles these automatically — no rewrites needed.
+# This file is here as a placeholder; add custom redirects below if needed.
+
+# Example: old URL → new URL
+# /old-page  /new-page  301

@@ -1,0 +1,283 @@
+/* ====================================================================
+   BEAUTIES OF THE BEASTS — 10 PREMIUM UPGRADES
+   Google Ads compliant · SEO-safe · Accessibility-first
+   ==================================================================== */
+
+/* ------------------------------------------------------------------ */
+/* 1. REFINED HEADER — frosted glass with scroll-aware background       */
+/* ------------------------------------------------------------------ */
+header {
+  backdrop-filter: blur(24px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+  background: rgba(6,7,10,0.72) !important;
+  border-bottom: 1px solid rgba(42,135,101,0.08);
+  transition: background 0.4s ease, border-color 0.4s ease !important;
+}
+header.scrolled {
+  background: rgba(6,7,10,0.92) !important;
+  border-bottom-color: rgba(42,135,101,0.18);
+}
+
+/* ------------------------------------------------------------------ */
+/* 2. PREMIUM HERO GRADIENT — richer ambient depth                      */
+/* ------------------------------------------------------------------ */
+.skin-bg {
+  background-color: var(--color-obsidian-900);
+  background-image:
+    radial-gradient(ellipse 80% 60% at 15% 25%, rgba(26,110,80,0.18) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 70% at 85% 75%, rgba(26,110,80,0.10) 0%, transparent 50%),
+    radial-gradient(ellipse 60% 40% at 50% 100%, rgba(6,7,10,0.8) 0%, transparent 60%),
+    repeating-linear-gradient(45deg, transparent 0 20px, hsla(0,0%,100%,0.006) 20px 21px);
+}
+
+/* ------------------------------------------------------------------ */
+/* 3. SCROLL PROGRESS BAR — premium site signal                         */
+/* ------------------------------------------------------------------ */
+#scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  width: 0%;
+  background: linear-gradient(90deg, #1a6e50, #2a8765, #4fa985);
+  z-index: 9999;
+  pointer-events: none;
+  transition: width 0.05s linear;
+  box-shadow: 0 0 8px rgba(42,135,101,0.6);
+}
+
+/* ------------------------------------------------------------------ */
+/* 4. SMOOTH SCROLL-REVEAL ANIMATIONS                                   */
+/* ------------------------------------------------------------------ */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.75s cubic-bezier(0.16,1,0.3,1),
+              transform 0.75s cubic-bezier(0.16,1,0.3,1);
+}
+.reveal-on-scroll.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-delay-1 { transition-delay: 0.08s; }
+.reveal-delay-2 { transition-delay: 0.16s; }
+.reveal-delay-3 { transition-delay: 0.26s; }
+.reveal-delay-4 { transition-delay: 0.38s; }
+.reveal-delay-5 { transition-delay: 0.52s; }
+
+/* ------------------------------------------------------------------ */
+/* 5. CARE PROGRAM CARDS — magnetic hover with top-edge highlight       */
+/* ------------------------------------------------------------------ */
+.border.border-obsidian-700\/60,
+.border-obsidian-700\/60,
+[class*="border-obsidian-700"] {
+  position: relative;
+  transition: transform 0.3s cubic-bezier(0.16,1,0.3,1),
+              box-shadow 0.3s ease,
+              border-color 0.3s ease !important;
+}
+[class*="border-obsidian-700"]:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.4), 0 0 0 1px rgba(42,135,101,0.15) !important;
+  border-color: rgba(42,135,101,0.35) !important;
+}
+[class*="border-obsidian-700"]::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(42,135,101,0.6), transparent);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+[class*="border-obsidian-700"]:hover::before {
+  opacity: 1;
+}
+
+/* ------------------------------------------------------------------ */
+/* 6. REFINED TYPOGRAPHY — tighter display hierarchy                    */
+/* ------------------------------------------------------------------ */
+.h-display-xl {
+  font-variation-settings: "opsz" 72, "SOFT" 10, "WONK" 1 !important;
+}
+.h-display-lg {
+  font-variation-settings: "opsz" 56, "SOFT" 5, "WONK" 1 !important;
+}
+p.lede {
+  font-size: 1.2rem;
+  line-height: 1.7;
+  color: rgb(212,204,185);
+  max-width: 58ch;
+}
+
+/* ------------------------------------------------------------------ */
+/* 7. DONATION AMOUNT BUTTONS — premium pill style + active state      */
+/* ------------------------------------------------------------------ */
+a[href*="zeffy"][class*="border-jade-700"] {
+  border-radius: 2px;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.25s ease, border-color 0.25s ease,
+              transform 0.15s ease, box-shadow 0.25s ease !important;
+}
+a[href*="zeffy"][class*="border-jade-700"]:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 24px rgba(26,110,80,0.25) !important;
+}
+a[href*="zeffy"][class*="border-jade-700"]:active {
+  transform: scale(0.97) !important;
+}
+
+/* ------------------------------------------------------------------ */
+/* 8. NAV LINKS — elegant underline animation                           */
+/* ------------------------------------------------------------------ */
+nav a:not(.btn-sheen) {
+  position: relative;
+}
+nav a:not(.btn-sheen)::after {
+  content: '';
+  position: absolute;
+  bottom: -1px; left: 50%;
+  width: 0; height: 1px;
+  background: rgba(42,135,101,0.8);
+  transition: width 0.35s cubic-bezier(0.16,1,0.3,1),
+              left 0.35s cubic-bezier(0.16,1,0.3,1);
+}
+nav a:not(.btn-sheen):hover::after,
+nav a.active::after {
+  width: 100%;
+  left: 0;
+}
+
+/* ------------------------------------------------------------------ */
+/* 9. FOOTER — enhanced layout with gradient separator                  */
+/* ------------------------------------------------------------------ */
+footer {
+  position: relative;
+}
+footer::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(42,135,101,0.25) 30%,
+    rgba(42,135,101,0.4) 50%,
+    rgba(42,135,101,0.25) 70%,
+    transparent 100%);
+}
+footer a[href*="instagram"]:hover,
+footer a[href*="facebook"]:hover {
+  background: rgba(42,135,101,0.1) !important;
+  border-color: rgba(42,135,101,0.6) !important;
+  color: #8cc7ad !important;
+  transform: translateY(-1px);
+}
+footer a[href*="instagram"],
+footer a[href*="facebook"] {
+  transition: background 0.2s ease, border-color 0.2s ease,
+              color 0.2s ease, transform 0.2s ease;
+}
+
+/* ------------------------------------------------------------------ */
+/* 10. PREMIUM DONATE CTA — pulsing glow + trust badge                  */
+/* ------------------------------------------------------------------ */
+a.btn-sheen[href*="zeffy"] {
+  animation: donateGlow 3.5s ease-in-out infinite;
+}
+@keyframes donateGlow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(26,110,80,0); }
+  50% { box-shadow: 0 0 22px 4px rgba(26,110,80,0.3), 0 0 40px -10px rgba(26,110,80,0.45); }
+}
+a.btn-sheen[href*="zeffy"]:hover {
+  animation: none;
+  box-shadow: 0 20px 48px -12px rgba(0,0,0,0.55), 0 0 60px -16px rgba(26,110,80,0.45) !important;
+}
+
+/* Trust micro-badge under the main donate button in hero */
+.donate-trust-line {
+  font-family: JetBrains Mono, monospace;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(143,134,112,0.8);
+  margin-top: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.donate-trust-line::before {
+  content: '';
+  display: inline-block;
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: rgba(42,135,101,0.7);
+  flex-shrink: 0;
+}
+
+/* ------------------------------------------------------------------ */
+/* SEO: Structured content helpers (visually hidden but crawlable)       */
+/* ------------------------------------------------------------------ */
+.seo-hidden {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* ------------------------------------------------------------------ */
+/* GOOGLE ADS COMPLIANCE: Ensure ad-safe spacing zones                  */
+/* ------------------------------------------------------------------ */
+/* Reserve 100px buffer around any future ad slots */
+.ad-zone-buffer {
+  min-height: 100px;
+  padding: 1rem 0;
+}
+/* No deceptive styling that could be confused for ads */
+a, button {
+  cursor: pointer !important;
+}
+
+/* ------------------------------------------------------------------ */
+/* ACCESSIBILITY: Improved focus rings, reduced motion                   */
+/* ------------------------------------------------------------------ */
+:focus-visible {
+  outline: 2px solid #2a8765 !important;
+  outline-offset: 3px !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal-on-scroll,
+  a.btn-sheen[href*="zeffy"],
+  #scroll-progress,
+  .marquee-track,
+  [class*="border-obsidian-700"],
+  footer a[href*="instagram"],
+  footer a[href*="facebook"] {
+    animation: none !important;
+    transition: none !important;
+  }
+  .reveal-on-scroll {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* MOBILE REFINEMENTS                                                    */
+/* ------------------------------------------------------------------ */
+@media (max-width: 768px) {
+  p.lede {
+    font-size: 1.05rem;
+  }
+  #scroll-progress {
+    height: 2px;
+  }
+  header {
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
+  }
+}
