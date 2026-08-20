@@ -15,38 +15,14 @@
   justify-content: center;
 }
 
-/* The rotating conic gradient ring behind the logo */
+/* Simple static ring behind the logo, no spin, no glow */
 .hero-portrait-wrap::before {
   content: '';
   position: absolute;
   inset: -3px;
   border-radius: 50%;
-  background: conic-gradient(
-    from 0deg,
-    rgba(42,135,101,0) 0%,
-    rgba(42,135,101,0.6) 25%,
-    rgba(79,169,133,0.8) 40%,
-    rgba(42,135,101,0.5) 55%,
-    rgba(42,135,101,0) 75%,
-    rgba(42,135,101,0) 100%
-  );
-  animation: ring-spin 8s linear infinite;
+  border: 2px solid rgba(53,91,69,0.35);
   pointer-events: none;
-}
-
-/* Mask the inside to keep just the ring */
-.hero-portrait-wrap::after {
-  content: '';
-  position: absolute;
-  inset: 2px;
-  border-radius: 50%;
-  background: var(--color-obsidian-900);
-  pointer-events: none;
-}
-
-@keyframes ring-spin {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(360deg); }
 }
 
 .hero-portrait-wrap img {
@@ -56,17 +32,11 @@
 }
 
 .hero-portrait-wrap:hover img {
-  transform: scale(1.04);
+  transform: scale(1.02);
 }
 
-/* Outer ambient glow */
 .hero-portrait-wrap .portrait-glow {
-  position: absolute;
-  inset: -40px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(26,110,80,0.18) 0%, transparent 65%);
-  pointer-events: none;
-  z-index: -1;
+  display: none;
 }
 
 /* ================================================================== */
@@ -74,10 +44,7 @@
 /*    The rescue count number gets an accent color burst              */
 /* ================================================================== */
 h1.h-display-xl .count-accent {
-  background: linear-gradient(135deg, #4fa985 0%, #2a8765 50%, #8cc7ad 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: #355B45;
   font-variation-settings: "opsz" 72, "SOFT" 20, "WONK" 1;
 }
 
@@ -93,7 +60,7 @@ h1.h-display-xl .count-accent {
   display: block;
   height: 1px;
   width: 32px;
-  background: linear-gradient(90deg, rgba(42,135,101,0.3), rgba(79,169,133,1));
+  background: #355B45;
   position: relative;
 }
 .hero-eyebrow-line .line-accent::after {
@@ -102,14 +69,8 @@ h1.h-display-xl .count-accent {
   right: 0; top: 50%;
   width: 4px; height: 4px;
   border-radius: 50%;
-  background: rgba(79,169,133,1);
+  background: #355B45;
   transform: translateY(-50%);
-  box-shadow: 0 0 6px rgba(79,169,133,0.8);
-  animation: dot-pulse 2.5s ease-in-out infinite;
-}
-@keyframes dot-pulse {
-  0%, 100% { opacity: 1; box-shadow: 0 0 6px rgba(79,169,133,0.8); }
-  50%       { opacity: 0.5; box-shadow: 0 0 12px rgba(79,169,133,0.4); }
 }
 
 /* ================================================================== */
@@ -126,7 +87,7 @@ h1.h-display-xl .count-accent {
   display: block;
   height: 1px;
   width: 0;
-  background: linear-gradient(90deg, rgba(42,135,101,0.4), rgba(79,169,133,0.9));
+  background: #355B45;
   transition: width 0.9s cubic-bezier(0.16,1,0.3,1) 0.2s;
 }
 
@@ -144,7 +105,7 @@ h1.h-display-xl .count-accent {
   font-weight: 300;
   font-size: clamp(2rem, 5vw, 3.5rem);
   letter-spacing: -0.04em;
-  color: #f5f2ec;
+  color: #355B45;
   font-variation-settings: "opsz" 72, "SOFT" 0, "WONK" 1;
   line-height: 1;
 }
@@ -165,13 +126,12 @@ h1.h-display-xl .count-accent {
   z-index: 2;
   pointer-events: none;
 }
-.marquee-container::before {
-  left: 0;
-  background: linear-gradient(90deg, rgba(6,34,24,0.95) 0%, transparent 100%);
-}
+.marquee-container::before,
 .marquee-container::after {
-  right: 0;
-  background: linear-gradient(270deg, rgba(6,34,24,0.95) 0%, transparent 100%);
+  display: none;
+}
+[aria-label="Site highlights"] {
+  display: none !important;
 }
 
 /* ================================================================== */
@@ -180,26 +140,18 @@ h1.h-display-xl .count-accent {
 /* ================================================================== */
 .border.border-obsidian-700\/60.bg-obsidian-900\/70,
 div[class*="border-obsidian-700/60"][class*="bg-obsidian-900"] {
-  background-image: 
-    repeating-linear-gradient(
-      -45deg,
-      transparent 0px,
-      transparent 8px,
-      rgba(42,135,101,0.02) 8px,
-      rgba(42,135,101,0.02) 9px
-    ) !important;
-  transition: background-image 0.3s ease, transform 0.3s cubic-bezier(0.16,1,0.3,1),
+  transition: transform 0.3s cubic-bezier(0.16,1,0.3,1),
               box-shadow 0.3s ease, border-color 0.3s ease !important;
 }
 
-div[class*="border-obsidian-700/60"][class*="bg-obsidian-900"]:hover {
+div[class*="border-obsidian-700/60"][class*="bg-obsidian-900"]:hover-disabled {
   background-image:
     repeating-linear-gradient(
       -45deg,
       transparent 0px,
       transparent 8px,
-      rgba(42,135,101,0.05) 8px,
-      rgba(42,135,101,0.05) 9px
+      rgba(63,107,82,0.05) 8px,
+      rgba(63,107,82,0.05) 9px
     ) !important;
 }
 
@@ -209,17 +161,13 @@ div[class*="border-obsidian-700/60"][class*="bg-obsidian-900"]:hover {
 /* ================================================================== */
 a[href="/adopt"].inline-flex,
 a[href*="adopt"].inline-flex:not([href*="zeffy"]):not(.btn-sheen) {
-  background: rgba(255,255,255,0.04) !important;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
   transition: background 0.3s ease, border-color 0.3s ease,
               transform 0.2s ease, box-shadow 0.3s ease !important;
 }
 a[href="/adopt"].inline-flex:hover,
 a[href*="adopt"].inline-flex:not([href*="zeffy"]):not(.btn-sheen):hover {
-  background: rgba(42,135,101,0.08) !important;
-  border-color: rgba(42,135,101,0.5) !important;
-  box-shadow: 0 0 24px rgba(42,135,101,0.15) !important;
+  background: rgba(53,91,69,0.06) !important;
+  border-color: rgba(53,91,69,0.5) !important;
 }
 
 /* ================================================================== */
@@ -228,13 +176,11 @@ a[href*="adopt"].inline-flex:not([href*="zeffy"]):not(.btn-sheen):hover {
 /*    inspired subtle scale/hex grid overlay                          */
 /* ================================================================== */
 .skin-bg {
-  background-color: var(--color-obsidian-900);
+  background-color: #F7F2E8;
   background-image:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='52' viewBox='0 0 60 52'%3E%3Cpath d='M30 0 L60 17.3 L60 34.6 L30 52 L0 34.6 L0 17.3Z' fill='none' stroke='rgba(42,135,101,0.04)' stroke-width='0.5'/%3E%3C/svg%3E"),
-    radial-gradient(ellipse 80% 60% at 15% 25%, rgba(26,110,80,0.16) 0%, transparent 55%),
-    radial-gradient(ellipse 50% 70% at 85% 75%, rgba(26,110,80,0.09) 0%, transparent 50%),
-    radial-gradient(ellipse 60% 40% at 50% 100%, rgba(6,7,10,0.7) 0%, transparent 60%) !important;
-  background-size: 60px 52px, 100% 100%, 100% 100%, 100% 100% !important;
+    radial-gradient(ellipse 70% 60% at 12% 15%, rgba(215,168,75,0.10) 0%, transparent 55%),
+    radial-gradient(ellipse 60% 55% at 90% 85%, rgba(53,91,69,0.06) 0%, transparent 55%) !important;
+  background-size: 100% 100%, 100% 100% !important;
 }
 
 /* ================================================================== */
@@ -251,7 +197,7 @@ a[href*="adopt"].inline-flex:not([href*="zeffy"]):not(.btn-sheen):hover {
   position: absolute;
   left: 0; top: 24px; bottom: 0;
   width: 0;
-  background: linear-gradient(180deg, rgba(42,135,101,0.7), rgba(42,135,101,0.1));
+  background: #355B45;
   transition: width 0.35s cubic-bezier(0.16,1,0.3,1);
 }
 .border-t.border-obsidian-700.pt-6:hover::before {
@@ -269,21 +215,7 @@ footer .container-edge {
   position: relative;
 }
 footer .container-edge::after {
-  content: '';
-  position: absolute;
-  bottom: 80px;
-  right: -20px;
-  width: 320px;
-  height: 320px;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300' viewBox='0 0 300 300'%3E%3Ccircle cx='150' cy='150' r='140' fill='none' stroke='rgba(42,135,101,0.04)' stroke-width='1'/%3E%3Ccircle cx='150' cy='150' r='100' fill='none' stroke='rgba(42,135,101,0.03)' stroke-width='1'/%3E%3Ccircle cx='150' cy='150' r='60' fill='none' stroke='rgba(42,135,101,0.025)' stroke-width='1'/%3E%3C/svg%3E") no-repeat center;
-  background-size: contain;
-  pointer-events: none;
-  opacity: 0.6;
-  animation: watermark-breathe 8s ease-in-out infinite;
-}
-@keyframes watermark-breathe {
-  0%, 100% { opacity: 0.4; transform: scale(1) rotate(0deg); }
-  50%       { opacity: 0.7; transform: scale(1.03) rotate(5deg); }
+  display: none;
 }
 
 /* Footer column titles get a refined separator */
@@ -296,7 +228,7 @@ footer [class*="font-mono"][class*="jade-300"]::after {
   position: absolute;
   bottom: 0; left: 0;
   width: 20px; height: 1px;
-  background: rgba(42,135,101,0.5);
+  background: rgba(53,91,69,0.5);
   transition: width 0.4s cubic-bezier(0.16,1,0.3,1);
 }
 footer:hover [class*="font-mono"][class*="jade-300"]::after {
@@ -306,21 +238,14 @@ footer:hover [class*="font-mono"][class*="jade-300"]::after {
 /* Copyright line — refined */
 footer .border-t.border-obsidian-800 {
   position: relative;
-  border-image: linear-gradient(90deg, transparent, rgba(42,135,101,0.2), transparent) 1 !important;
+  border-image: linear-gradient(90deg, transparent, rgba(53,91,69,0.2), transparent) 1 !important;
 }
 
 /* ================================================================== */
 /* BONUS: Custom text cursor glow (existing #cursor-glow enhancement) */
 /* ================================================================== */
 #cursor-glow {
-  width: 500px !important;
-  height: 500px !important;
-  background: radial-gradient(circle,
-    rgba(42,135,101,0.055) 0%,
-    rgba(26,110,80,0.02) 40%,
-    transparent 70%) !important;
-  transition: transform 0.08s ease,
-              opacity 0.3s ease !important;
+  display: none !important;
 }
 
 /* ================================================================== */
@@ -330,7 +255,7 @@ footer .border-t.border-obsidian-800 {
 span.font-mono.text-\[10px\].text-jade-300 {
   font-size: 9px !important;
   letter-spacing: 0.3em !important;
-  opacity: 0.7;
+  opacity: 0.85;
 }
 
 /* ================================================================== */
@@ -361,7 +286,7 @@ span.font-mono.text-\[10px\].text-jade-300 {
 /* ================================================================== */
 .scale-divider {
   height: 8px;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 8' preserveAspectRatio='none'><path d='M0 8 Q 5 0 10 8 Q 15 0 20 8 Q 25 0 30 8 Q 35 0 40 8 Q 45 0 50 8 Q 55 0 60 8' stroke='%2386c9a8' stroke-opacity='0.22' fill='none' stroke-width='1'/></svg>");
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 8' preserveAspectRatio='none'><path d='M0 8 Q 5 0 10 8 Q 15 0 20 8 Q 25 0 30 8 Q 35 0 40 8 Q 45 0 50 8 Q 55 0 60 8' stroke='%23355B45' stroke-opacity='0.3' fill='none' stroke-width='1'/></svg>");
   background-repeat: repeat-x;
   background-size: 60px 8px;
   background-position: center center;
@@ -380,7 +305,7 @@ span.font-mono.text-\[10px\].text-jade-300 {
   left: 0;
   right: 0;
   height: 8px;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 8' preserveAspectRatio='none'><path d='M0 8 Q 5 0 10 8 Q 15 0 20 8 Q 25 0 30 8 Q 35 0 40 8 Q 45 0 50 8 Q 55 0 60 8' stroke='%2386c9a8' stroke-opacity='0.22' fill='none' stroke-width='1'/></svg>");
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 8' preserveAspectRatio='none'><path d='M0 8 Q 5 0 10 8 Q 15 0 20 8 Q 25 0 30 8 Q 35 0 40 8 Q 45 0 50 8 Q 55 0 60 8' stroke='%23355B45' stroke-opacity='0.3' fill='none' stroke-width='1'/></svg>");
   background-repeat: repeat-x;
   background-size: 60px 8px;
   pointer-events: none;
