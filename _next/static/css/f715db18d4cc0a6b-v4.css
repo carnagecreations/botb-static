@@ -205,6 +205,7 @@ body { opacity: 1 !important; }
 .rounded-full{border-radius:9999px}
 input,select,textarea{border-radius:8px}
 .bg-jade-500.text-bone-50,.text-bone-50.bg-jade-500,.bg-ember-500.text-bone-50,.text-bone-50.bg-ember-500{color:#F7F2E8 !important}
+.grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}
 @media (min-width:640px){.sm\:grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (min-width:768px){.md\:grid-cols-4{grid-template-columns:repeat(4,minmax(0,1fr))}.md\:gap-12{gap:3rem}.md\:p-10{padding:2.5rem}.md\:p-8{padding:2rem}.md\:py-14{padding-top:3.5rem;padding-bottom:3.5rem}.md\:py-20{padding-top:5rem;padding-bottom:5rem}.md\:text-2xl{font-size:1.5rem;line-height:2rem}.md\:text-3xl{font-size:1.875rem;line-height:2.25rem}.md\:w-72{width:18rem}.md\:h-72{height:18rem}.md\:h-\[560px\]{height:560px}.md\:h-\[600px\]{height:600px}}
 
@@ -213,7 +214,6 @@ input,select,textarea{border-radius:8px}
    but were never present in the compiled Tailwind bundle
    (pre-existing gap, found during a layout audit)
    ============================================================ */
-.grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}
 .border-l-2{border-left-width:2px}
 .border-jade-500{--tw-border-opacity:1;border-color:rgb(53 91 69/var(--tw-border-opacity,1))}
 .border-jade-600{--tw-border-opacity:1;border-color:rgb(42 74 56/var(--tw-border-opacity,1))}
