@@ -22,7 +22,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>404 — Page Not Found | Beauties of the Beasts</title>
 <meta name="robots" content="noindex, nofollow"/>
-<link rel="stylesheet" href="/_next/static/css/f715db18d4cc0a6b-v4.css"/>
+<link rel="stylesheet" href="/_next/static/css/f715db18d4cc0a6b-v5.css"/>
 <link rel="icon" href="/favicon.ico"/>
 <meta name="format-detection" content="telephone=no"><link rel="dns-prefetch" href="//zeffy.com"><link rel="dns-prefetch" href="//fonts.gstatic.com"><meta name="theme-color" content="#FFFDF8"/>
 <style>
@@ -50,7 +50,7 @@
   <div class="container-edge">
     <div class="flex h-20 items-center justify-between">
       <a class="group flex items-center gap-3" aria-label="Home" href="/">
-        <img src="/logo-badge.jpg" alt="Beauties of the Beasts Reptile Rescue" class="h-12 w-12 rounded-full object-cover"/>
+        <img src="/logo-badge.jpg" alt="Beauties of the Beasts Reptile Rescue" class="h-12 w-12 rounded-full object-cover" width="48" height="48"/>
         <div class="flex flex-col leading-none">
           <span class="font-display text-base font-normal tracking-tight text-bone-50">Beauties of the Beasts</span>
           <span class="mt-1 font-mono text-[9px] uppercase tracking-widest-2 text-jade-300">Reptile Rescue · Yuma, AZ</span>
@@ -187,15 +187,20 @@
   </div>
 </div>
 <script>
+var bbLastFocused = null;
 function bbOpen(){
+  bbLastFocused = document.activeElement;
   document.getElementById('bb-panel').classList.add('bb-open');
   document.getElementById('bb-backdrop').classList.add('bb-open');
   document.body.style.overflow='hidden';
+  var closeBtn = document.getElementById('bb-close');
+  if (closeBtn) closeBtn.focus();
 }
 function bbClose(){
   document.getElementById('bb-panel').classList.remove('bb-open');
   document.getElementById('bb-backdrop').classList.remove('bb-open');
   document.body.style.overflow='';
+  if (bbLastFocused && typeof bbLastFocused.focus === 'function') bbLastFocused.focus();
 }
 document.addEventListener('click', function(e){
   // Close: X button
@@ -212,6 +217,20 @@ document.addEventListener('click', function(e){
     bbOpen();
   }
 }, true);
-document.addEventListener('keydown',function(e){if(e.key==='Escape')bbClose();});
+document.addEventListener('keydown',function(e){
+  if(e.key==='Escape'){bbClose();return;}
+  if(e.key==='Tab'){
+    var panel = document.getElementById('bb-panel');
+    if(!panel || !panel.classList.contains('bb-open')) return;
+    var focusable = panel.querySelectorAll('a[href], button:not([disabled])');
+    if(!focusable.length) return;
+    var first = focusable[0], last = focusable[focusable.length-1];
+    if(e.shiftKey && document.activeElement === first){
+      e.preventDefault(); last.focus();
+    } else if(!e.shiftKey && document.activeElement === last){
+      e.preventDefault(); first.focus();
+    }
+  }
+});
 </script>
 </body></html>

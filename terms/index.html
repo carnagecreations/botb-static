@@ -24,7 +24,7 @@
 <meta name="description" content="Terms of use for yumareptiles.com, a 501(c)(3) reptile rescue website in Yuma, Arizona."/>
 <link rel="canonical" href="https://yumareptiles.com/terms/"/>
 <meta property="og:url" content="https://yumareptiles.com/terms/"/>
-<link rel="stylesheet" href="/_next/static/css/f715db18d4cc0a6b-v4.css"/>
+<link rel="stylesheet" href="/_next/static/css/f715db18d4cc0a6b-v5.css"/>
 <link rel="icon" href="/favicon.ico"/>
 <style>
 @media (prefers-reduced-motion: reduce) {
@@ -239,15 +239,20 @@
   </div>
 </div>
 <script>
+var bbLastFocused = null;
 function bbOpen(){
+  bbLastFocused = document.activeElement;
   document.getElementById('bb-panel').classList.add('bb-open');
   document.getElementById('bb-backdrop').classList.add('bb-open');
   document.body.style.overflow='hidden';
+  var closeBtn = document.getElementById('bb-close');
+  if (closeBtn) closeBtn.focus();
 }
 function bbClose(){
   document.getElementById('bb-panel').classList.remove('bb-open');
   document.getElementById('bb-backdrop').classList.remove('bb-open');
   document.body.style.overflow='';
+  if (bbLastFocused && typeof bbLastFocused.focus === 'function') bbLastFocused.focus();
 }
 document.addEventListener('click', function(e){
   // Close: X button
@@ -264,7 +269,21 @@ document.addEventListener('click', function(e){
     bbOpen();
   }
 }, true);
-document.addEventListener('keydown',function(e){if(e.key==='Escape')bbClose();});
+document.addEventListener('keydown',function(e){
+  if(e.key==='Escape'){bbClose();return;}
+  if(e.key==='Tab'){
+    var panel = document.getElementById('bb-panel');
+    if(!panel || !panel.classList.contains('bb-open')) return;
+    var focusable = panel.querySelectorAll('a[href], button:not([disabled])');
+    if(!focusable.length) return;
+    var first = focusable[0], last = focusable[focusable.length-1];
+    if(e.shiftKey && document.activeElement === first){
+      e.preventDefault(); last.focus();
+    } else if(!e.shiftKey && document.activeElement === last){
+      e.preventDefault(); first.focus();
+    }
+  }
+});
 </script>
 <style>
 .back-to-top-snake{position:fixed;left:20px;bottom:20px;width:52px;height:52px;border-radius:50%;background:rgba(255,253,248,.94);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:2px solid rgba(53,91,69,.5);display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0;pointer-events:none;transform:translateY(10px);transition:opacity .3s ease,transform .3s ease,border-color .2s ease;z-index:60;box-shadow:0 4px 20px rgba(45,41,38,.16);padding:0;}
