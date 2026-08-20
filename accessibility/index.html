@@ -39,6 +39,8 @@
 }
 </style>
 <link rel="stylesheet" href="/premium-upgrades-v2.css"/><link rel="stylesheet" href="/visual-upgrades-v2.css"/>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Accessibility Statement | Beauties of the Beasts","description":"Our accessibility commitment: the WCAG standard we target, what we've fixed, and how to report a barrier on yumareptiles.com.","url":"https://yumareptiles.com/accessibility/"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://yumareptiles.com/"},{"@type":"ListItem","position":2,"name":"Accessibility","item":"https://yumareptiles.com/accessibility/"}]}</script>
 </head>
 <body class="font-sans">
 <div id="__next"><a class="skip-to-content" href="#main">Skip to content</a>
@@ -53,6 +55,9 @@
         </div>
       </a>
       <nav class="hidden items-center gap-1 lg:flex" aria-label="Primary"><a class="relative px-4 py-2 text-[13px] font-medium transition-colors text-bone-200 hover:text-bone-50" href="/about">About</a><a class="relative px-4 py-2 text-[13px] font-medium transition-colors text-bone-200 hover:text-bone-50" href="/adopt">Adopt</a><a class="relative px-4 py-2 text-[13px] font-medium transition-colors text-bone-200 hover:text-bone-50" href="/surrender">Surrender</a><a class="relative px-4 py-2 text-[13px] font-medium transition-colors text-bone-200 hover:text-bone-50" href="/faq">FAQ</a><a class="relative px-4 py-2 text-[13px] font-medium transition-colors text-bone-200 hover:text-bone-50" href="/bulldog-rescue">Bulldog Rescue</a><a class="relative px-4 py-2 text-[13px] font-medium transition-colors text-bone-200 hover:text-bone-50" href="/vision">Our Vision</a><a class="relative px-4 py-2 text-[13px] font-medium transition-colors text-bone-200 hover:text-bone-50" href="/human-sanctuary">Human Sanctuary</a><a class="relative px-4 py-2 text-[13px] font-medium transition-colors text-bone-200 hover:text-bone-50" href="/contact">Contact</a></nav>
+      <button id="mobile-menu-btn" style="touch-action:manipulation;-webkit-tap-highlight-color:transparent;" onclick="bbOpen()" aria-expanded="false" aria-controls="bb-panel" aria-label="Open navigation menu" class="lg:hidden">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+      </button>
     </div>
   </div>
 </header>
@@ -83,7 +88,7 @@
 
       <section>
         <h2 class="h-display-sm text-bone-50 mb-4">Known Limitations</h2>
-        <p>We don't yet offer a light or reduced-contrast theme — the site is currently dark-themed only. We're aware some body text may not meet contrast targets in every context and are auditing this. If a specific page or element is hard to read, please tell us; that report goes directly into what we fix next.</p>
+        <p>We're still auditing contrast across every page and component as the site evolves. If a specific page or element is hard to read, please tell us; that report goes directly into what we fix next.</p>
       </section>
 
       <section>
@@ -111,6 +116,101 @@
     </div>
   </div>
 </footer></div>
+<style>
+#bb-panel{
+  position:fixed;top:0;right:0;bottom:0;
+  width:min(300px,85vw);
+  background:#FFFDF8;
+  border-left:1px solid rgba(53,91,69,0.2);
+  z-index:99999;
+  transform:translateX(100%);
+  transition:transform 0.3s cubic-bezier(0.16,1,0.3,1);
+  display:flex;flex-direction:column;
+  overflow-y:auto;
+  -webkit-overflow-scrolling:touch;
+}
+#bb-panel.bb-open{transform:translateX(0);}
+#bb-backdrop{
+  position:fixed;inset:0;
+  background:rgba(45,41,38,0.5);
+  z-index:99998;
+  display:none;
+  -webkit-tap-highlight-color:transparent;
+}
+#bb-backdrop.bb-open{display:block;}
+#bb-panel-inner{padding:1.5rem;flex:1;}
+#bb-close{
+  display:flex;align-items:center;justify-content:center;
+  width:44px;height:44px;
+  background:transparent;border:none;
+  color:#2D2926;cursor:pointer;
+  margin-left:auto;margin-bottom:0.75rem;
+  -webkit-tap-highlight-color:transparent;
+  touch-action:manipulation;
+}
+#bb-nav-links a{
+  display:block;
+  font-size:1.1rem;color:#2D2926;
+  padding:0.85rem 0;
+  border-bottom:1px solid rgba(45,41,38,0.08);
+  text-decoration:none;
+}
+#bb-nav-links a:active{color:#355B45;}
+#bb-donate-btn{
+  display:block;
+  margin-top:1.5rem;
+  padding:0.85rem 1.5rem;
+  font-family:monospace;font-size:0.7rem;
+  letter-spacing:0.1em;text-transform:uppercase;
+  background:#355B45;color:#F7F2E8;
+  text-align:center;text-decoration:none;
+  border-radius:12px;
+}
+</style>
+
+<div id="bb-backdrop"></div>
+<div id="bb-panel" role="dialog" aria-modal="true" aria-label="Navigation">
+  <div id="bb-panel-inner">
+    <button id="bb-close" aria-label="Close menu" type="button">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+    </button>
+    <nav id="bb-nav-links" aria-label="Mobile navigation">
+      <a href="/about" onclick="bbClose()">About</a>
+      <a href="/adopt" onclick="bbClose()">Adopt</a>
+      <a href="/surrender" onclick="bbClose()">Surrender</a>
+      <a href="/faq" onclick="bbClose()">FAQ</a>
+      <a href="/bulldog-rescue" onclick="bbClose()">Bulldog Rescue</a>
+      <a href="/vision" onclick="bbClose()">Our Vision</a>
+      <a href="/human-sanctuary" onclick="bbClose()">Human Sanctuary</a>
+      <a href="/contact" onclick="bbClose()">Contact</a>
+    </nav>
+    <a id="bb-donate-btn" href="/donate">Donate →</a>
+  </div>
+</div>
+<script>
+function bbOpen(){
+  document.getElementById('bb-panel').classList.add('bb-open');
+  document.getElementById('bb-backdrop').classList.add('bb-open');
+  document.body.style.overflow='hidden';
+}
+function bbClose(){
+  document.getElementById('bb-panel').classList.remove('bb-open');
+  document.getElementById('bb-backdrop').classList.remove('bb-open');
+  document.body.style.overflow='';
+}
+document.addEventListener('click', function(e){
+  if(e.target.closest('#bb-close')){bbClose();return;}
+  if(e.target.id==='bb-backdrop'){bbClose();return;}
+  var btn = e.target.closest('button');
+  if(!btn) return;
+  var lbl = (btn.getAttribute('aria-label')||'').toLowerCase();
+  if(lbl.indexOf('open')!==-1 || btn.id==='mobile-menu-btn'){
+    e.stopImmediatePropagation();
+    bbOpen();
+  }
+}, true);
+document.addEventListener('keydown',function(e){if(e.key==='Escape')bbClose();});
+</script>
 <script src="/premium-upgrades.js" defer></script><script src="/visual-upgrades.js" defer></script>
 <style>
 .back-to-top-snake{position:fixed;left:20px;bottom:20px;width:52px;height:52px;border-radius:50%;background:rgba(255,253,248,.94);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:2px solid rgba(53,91,69,.5);display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0;pointer-events:none;transform:translateY(10px);transition:opacity .3s ease,transform .3s ease,border-color .2s ease;z-index:60;box-shadow:0 4px 20px rgba(45,41,38,.16);padding:0;}
