@@ -368,4 +368,31 @@ document.addEventListener('keydown',function(e){
   });
 })();
 </script>
+<script>
+(function() {
+  // Internal rescue admin app (rescue-volunteer-app repo, Vue3 + Pinia +
+  // Firebase) — placeholder until the real Cloudflare Pages URL is known.
+  var RESCUE_API_BASE = 'https://rescue-volunteer-app.pages.dev';
+
+  var form = document.getElementById('surrenderForm');
+  if (!form) return;
+
+  // Independent, fire-and-forget mirror of this submission into the
+  // rescue's own surrender-request queue. This listener does NOT call
+  // preventDefault() and never touches the web3forms flow above (a
+  // separate listener on the same submit event) — if this fetch fails,
+  // nothing about the existing email notification changes.
+  form.addEventListener('submit', function(e) {
+    var data = new FormData(form);
+    var payload = {};
+    data.forEach(function(value, key) { payload[key] = value; });
+
+    fetch(RESCUE_API_BASE + '/api/submit-surrender', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }).catch(function() {});
+  });
+})();
+</script>
 <noscript><style>.reveal-on-scroll{opacity:1!important;transform:none!important}</style></noscript><script src="/experience.js" defer></script></body></html>

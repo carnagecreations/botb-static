@@ -161,6 +161,35 @@
     setupForm(document.querySelector('form'), document.title.includes('Surrender') ? 'Surrender Request' : 'Adoption Application');
   });
 })();
+</script>
+<script>
+(function() {
+  // Internal rescue admin app (rescue-volunteer-app repo, Vue3 + Pinia +
+  // Firebase) — placeholder until the real Cloudflare Pages URL is known.
+  var RESCUE_API_BASE = 'https://rescue-volunteer-app.pages.dev';
+
+  document.addEventListener('DOMContentLoaded', function() {
+    var form = document.querySelector('form');
+    if (!form) return;
+
+    // Independent, fire-and-forget mirror of this submission into the
+    // rescue's own applications queue. This listener does NOT call
+    // preventDefault() and never touches the web3forms flow above (a
+    // separate listener on the same submit event) — if this fetch fails,
+    // nothing about the existing email notification changes.
+    form.addEventListener('submit', function(e) {
+      var data = new FormData(form);
+      var payload = {};
+      data.forEach(function(value, key) { payload[key] = value; });
+
+      fetch(RESCUE_API_BASE + '/api/submit-application', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      }).catch(function() {});
+    });
+  });
+})();
 </script></div>
 <style>
 #mobile-menu{position:fixed;top:0;right:0;bottom:0;width:min(300px,85vw);background:#FFFDF8;border-left:1px solid rgba(53,91,69,.2);padding:2rem 1.5rem;transform:translateX(100%);opacity:0;pointer-events:none;transition:transform .35s cubic-bezier(.16,1,.3,1),opacity .25s ease;z-index:50;display:flex;flex-direction:column;gap:1.5rem}
