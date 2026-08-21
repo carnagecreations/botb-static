@@ -191,14 +191,11 @@ a[target="_blank"]:not(.btn-sheen):not(#animal-count-badge)::after {
 }
 
 /* ===== STATIC DEPLOYMENT FIXES ===== */
-/* Disable JS-dependent visibility — show everything immediately */
+/* /experience.js drives .reveal-on-scroll + real fadeUp animation now — see that file. */
+/* Each page also carries a <noscript> override for .reveal-on-scroll as a JS-disabled safety net. */
 body { opacity: 1 !important; }
-.reveal-on-scroll { opacity: 1 !important; transform: none !important; }
 .page-transition-out { opacity: 1 !important; transform: none !important; }
 [style*="opacity:0"] { opacity: 1 !important; transform: none !important; }
-/* Make fade-up animation start visible (no JS to trigger it) */
-@keyframes fadeUp { 0% { opacity: 1; transform: none; } to { opacity: 1; transform: none; } }
-.animate-fade-up { animation: none; opacity: 1; }
 
 .btn-sheen{border-radius:12px;overflow:hidden}
 .border-obsidian-700,.border-obsidian-700\/50,.border-obsidian-700\/60,.border-obsidian-700\/80,.border-jade-700\/50,.border-jade-700\/60,.border-jade-400\/50,.border-jade-400\/60,.bg-obsidian-850,.bg-obsidian-900\/70{border-radius:14px;overflow:hidden}
