@@ -164,9 +164,28 @@
 </script>
 <script>
 (function() {
-  // Internal rescue admin app (rescue-volunteer-app repo, Vue3 + Pinia +
-  // Firebase) — placeholder until the real Cloudflare Pages URL is known.
-  var RESCUE_API_BASE = 'https://rescue-volunteer-app.pages.dev';
+  // Mirrors this submission straight into the rescue app's Firestore
+  // `applications` collection — no Cloudflare Function, no service-account
+  // key (Google Cloud org policy blocks creating one for this project).
+  // The web API key below isn't a secret; it only identifies the Firebase
+  // project. Firestore Security Rules are the real authorization boundary:
+  // `applications` only allows an anonymous `create` of a minimally-shaped
+  // doc (status must be 'submitted', email must be a string, honeypot must
+  // be empty) — never read, update, or delete. See rescue-volunteer-app's
+  // firestore.rules.
+  var FIREBASE_PROJECT_ID = 'reptilebase-10c89';
+  var FIREBASE_API_KEY = 'AIzaSyC0c-NwJ0XswinjWcqr3OmSGASfLNpB2pQ';
+  var FIRESTORE_URL =
+    'https://firestore.googleapis.com/v1/projects/' + FIREBASE_PROJECT_ID +
+    '/databases/(default)/documents/applications?key=' + FIREBASE_API_KEY;
+
+  function toFirestoreFields(payload) {
+    var fields = {};
+    Object.keys(payload).forEach(function(key) {
+      fields[key] = { stringValue: String(payload[key] == null ? '' : payload[key]) };
+    });
+    return fields;
+  }
 
   document.addEventListener('DOMContentLoaded', function() {
     var form = document.querySelector('form');
@@ -179,13 +198,14 @@
     // nothing about the existing email notification changes.
     form.addEventListener('submit', function(e) {
       var data = new FormData(form);
-      var payload = {};
+      var payload = { botcheck: '' };
       data.forEach(function(value, key) { payload[key] = value; });
+      payload.status = 'submitted';
 
-      fetch(RESCUE_API_BASE + '/api/submit-application', {
+      fetch(FIRESTORE_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
+        body: JSON.stringify({ fields: toFirestoreFields(payload) })
       }).catch(function() {});
     });
   });

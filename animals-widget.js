@@ -1,16 +1,56 @@
 /*
- * Pulls live "available for adoption" animals from the rescue's backend
- * (Cloudflare Pages Function -> Firestore, see rescue-volunteer-app repo)
- * and replaces the static #animal-grid cards on /adopt with them.
+ * Pulls live "available for adoption" animals straight from the rescue's
+ * Firestore `publicAnimals` collection (see rescue-volunteer-app repo,
+ * stores/animals.js's syncPublicAnimal) and replaces the static
+ * #animal-grid cards on /adopt with them.
  *
- * Fails soft: if the API is unreachable or returns nothing, the static
+ * Calls the Firestore REST API directly with the project's public web API
+ * key rather than going through a Cloudflare Function — that key isn't a
+ * secret (it just identifies the Firebase project; Firestore Security
+ * Rules are the actual authorization boundary, and `publicAnimals` is the
+ * one collection deliberately open to `allow read: if true`), and this
+ * avoids needing a service-account key Google Cloud org policy disabled
+ * for this account.
+ *
+ * Fails soft: if Firestore is unreachable or returns nothing, the static
  * cards already in the HTML stay exactly as they are — this script only
  * ever overwrites the grid once it has real data in hand.
  */
 (function () {
-  // Update this once the backend is deployed. Public, read-only endpoint —
-  // no credentials are sent or required.
-  var ANIMALS_API_URL = 'https://rescue-volunteer-app.pages.dev/api/public-animals';
+  var FIREBASE_PROJECT_ID = 'reptilebase-10c89';
+  var FIREBASE_API_KEY = 'AIzaSyC0c-NwJ0XswinjWcqr3OmSGASfLNpB2pQ';
+  var ANIMALS_API_URL =
+    'https://firestore.googleapis.com/v1/projects/' +
+    FIREBASE_PROJECT_ID +
+    '/databases/(default)/documents/publicAnimals?key=' +
+    FIREBASE_API_KEY +
+    '&pageSize=300';
+
+  function fsValue(field) {
+    if (!field) return null
+    if (field.stringValue !== undefined) return field.stringValue
+    if (field.integerValue !== undefined) return Number(field.integerValue)
+    if (field.doubleValue !== undefined) return field.doubleValue
+    if (field.booleanValue !== undefined) return field.booleanValue
+    return null
+  }
+
+  function docToAnimal(fsDoc) {
+    var f = fsDoc.fields || {};
+    return {
+      id: fsDoc.name.split('/').pop(),
+      slug: fsValue(f.slug),
+      name: fsValue(f.name),
+      species: fsValue(f.species),
+      breed: fsValue(f.breed),
+      sex: fsValue(f.sex),
+      ageLabel: fsValue(f.ageLabel),
+      sizeLabel: fsValue(f.sizeLabel),
+      experienceLevel: fsValue(f.experienceLevel),
+      bio: fsValue(f.bio),
+      status: fsValue(f.status),
+    };
+  }
 
   function escapeHtml(value) {
     return String(value == null ? '' : value).replace(/[&<>"']/g, function (c) {
@@ -104,11 +144,11 @@
 
     fetch(ANIMALS_API_URL, { credentials: 'omit' })
       .then(function (res) {
-        if (!res.ok) throw new Error('animals API returned ' + res.status);
+        if (!res.ok) throw new Error('Firestore returned ' + res.status);
         return res.json();
       })
       .then(function (data) {
-        var animals = (data && data.animals) || [];
+        var animals = ((data && data.documents) || []).map(docToAnimal);
         if (!animals.length) return; // keep the static fallback cards
 
         grid.innerHTML = animals.map(cardHtml).join('');
