@@ -81,9 +81,13 @@
   }
 
   function breedLineHtml(animal) {
-    var species = escapeHtml(animal.species || '');
-    if (!animal.breed) return species;
-    return species + '<span class="text-bone-400"> · ' + escapeHtml(animal.breed) + '</span>';
+    // `breed` already carries the full common name + morph (e.g. "Ball
+    // Python (Blue Eyed Leucistic)"), so lead with that — `species` is
+    // just a broad category (Snake/Lizard/Tarantula/...) and reads
+    // redundant as a prefix when breed is this specific. Only fall back
+    // to species when breed is missing entirely.
+    if (animal.breed) return escapeHtml(animal.breed);
+    return escapeHtml(animal.species || '');
   }
 
   function cardHtml(animal) {
